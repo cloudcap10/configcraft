@@ -55,7 +55,8 @@ the content of these is visible only as root of the docker host.
 
  In this setup, ports 80 and 443 are published/mapped onto the Docker host, as Caddy is designated to handle all incoming traffic on these ports.
 
-`docker-compose.yml`
+[docker-compose.yml](caddy/compose.yaml)
+
 ```yml
 version: "3.5"
 services:
@@ -90,7 +91,8 @@ networks:
     external: true
 ```
 
-`.env`
+[.env](caddy/.env)
+
 ```php
 # Docker Volume
 DOCKER_VOLUME_STORAGE=/mnt/docker-volumes
@@ -136,7 +138,8 @@ For the configuration of subdomains such as `stack` and `actual`, flexibility in
             ├── 🗋 compose.yaml
 ```
 
-`compose.yml`
+[compose.yml](dockge/compose.yaml)
+
 ```yml
 version: "3.8"
 services:
@@ -158,7 +161,7 @@ networks:
     name: $DOCKER_INTERNAL_NETWORK
     external: true
 ```
-`.env`
+[.env](dockge/compose.yaml)
 ```php
 # Docker Volume
 DOCKER_VOLUME_STORAGE=/mnt/docker-volumes
