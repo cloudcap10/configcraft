@@ -55,7 +55,7 @@ the content of these is visible only as root of the docker host.
 
  In this setup, ports 80 and 443 are published/mapped onto the Docker host, as Caddy is designated to handle all incoming traffic on these ports.
 
-[docker-compose.yml](caddy/compose.yaml)
+[docker-compose.yml](./caddy/docker-compose.yml)
 
 ```yml
 version: "3.5"
