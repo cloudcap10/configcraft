@@ -114,11 +114,7 @@ actual.{$MY_DOMAIN} {
 
 ```
 
-`stack` and `actual` are the subdomains, can be named whatever.<br>
-For them to work they **must have type-A DNS record set**, that points
-at your public ip set on Cloudflare, or wherever the domains DNS is managed.<br>
-
-
+For the configuration of subdomains such as 'stack' and 'actual', flexibility in naming is provided to suit your naming conventions. To ensure these subdomains are operational, establish type-A DNS records for each. These records must point to your public IP address and be configured within your DNS management platform, such as Cloudflare or any other DNS service provider you utilize.
 
 # Create directories that store your stacks and stores Dockge's stack
 mkdir -p /opt/stacks /opt/dockge
