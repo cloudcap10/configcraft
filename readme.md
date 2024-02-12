@@ -45,9 +45,7 @@ the content of these is visible only as root of the docker host.
 
 ### - Create docker-compose.yml and .env file
 
-Basic simple docker compose, using the official caddy image.<br>
-Ports 80 and 443 are pusblished/mapped on to docker host as Caddy
-is the one in charge of any traffic coming there.<br>
+ In this setup, ports 80 and 443 are published/mapped onto the Docker host, as Caddy is designated to handle all incoming traffic on these ports.
 
 `docker-compose.yml`
 ```yml
