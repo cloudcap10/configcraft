@@ -3,7 +3,7 @@
 
 Incorporating [dockge](https://github.com/louislam/dockge), a Docker compose.yaml stack-oriented manager, this project further streamlines the deployment and management of containerized applications. Dockge introduces an intuitive layer for handling Docker Compose files, enabling users to effortlessly create, edit, and manage their service stacks. With Caddy serving as the primary entry point for traffic routing, Dockge complements this setup by offering a centralized platform for managing the underlying Docker Compose configurations. This enhances operational efficiency, simplifies the process of scaling services, and provides a unified interface for overseeing the entire Dockerized environment. The combination of Caddy's reverse proxy capabilities with Dockge's stack management tools presents a robust solution for maintaining a secure, scalable, and well-organized container ecosystem.
 
-<img src="https://t3.talz.net/talz/img/ConfigCraft-Caddy.png" width="900" alt="" />
+<img src="assets/ConfigCraft-Caddy.png" width="900" alt="" />
 
 # Caddy as a reverse proxy in docker
 
