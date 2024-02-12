@@ -7,7 +7,7 @@ Incorporating [dockge](https://github.com/louislam/dockge), a Docker compose.yam
 
 # Built With
 
-[![Built With](https://skillicons.dev/icons?i=git,docker)](https://github.com/cloudcap10/configcraft)
+[![Built With](https://skillicons.dev/icons?i=git,docker)](https://www.docker.com/)
 
 # Getting Started
 
@@ -188,3 +188,21 @@ DOCKER_INTERNAL_NETWORK=internal_net
 
 `docker compose up -d`
 
+### Accessing Configured Services
+
+With our system configured as detailed in this guide, Caddy securely exposes Dockge and other services. This section guides you on accessing Dockge for Docker compose stack management and utilizing other services routed through Caddy.
+
+#### How to Access:
+
+- **Navigate to Dockge**: To manage your Docker compose stacks, visit Dockge at its Caddy-configured URL:
+  - **Dockge Interface**: [Stack](https://stack.talz.net/) - This link leads directly to Dockge, enabling secure creation, editing, and management of Docker compose stacks.
+
+- **Secure Browsing**: Thanks to Caddy's automatic HTTPS, all connections, including those to Dockge and other services, are encrypted with SSL/TLS, ensuring your data is protected.
+
+#### Important Notes:
+
+- **Customization**: Replace `talz.net` in the URLs with your actual domain to align with your specific setup.
+- **DNS Settings**: Ensure your domain’s DNS records point correctly to the IP of your server hosting Caddy, allowing seamless access to these services.
+- **Firewall Configuration**: Adjust your server’s firewall to permit traffic on ports 80 and 443, enabling external access to services through Caddy.
+
+The configurations outlined in this guide, you're equipped with a secure and efficient method to access Dockge for Docker compose stack management.
