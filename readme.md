@@ -91,7 +91,7 @@ networks:
     external: true
 ```
 
-[.env](caddy/.env)
+[.env](./caddy/.env)
 
 ```php
 # Docker Volume
