@@ -1,6 +1,9 @@
+
 ## About The Project
 
 Incorporating [dockge](https://github.com/louislam/dockge), a Docker compose.yaml stack-oriented manager, this project further streamlines the deployment and management of containerized applications. Dockge introduces an intuitive layer for handling Docker Compose files, enabling users to effortlessly create, edit, and manage their service stacks. With Caddy serving as the primary entry point for traffic routing, Dockge complements this setup by offering a centralized platform for managing the underlying Docker Compose configurations. This enhances operational efficiency, simplifies the process of scaling services, and provides a unified interface for overseeing the entire Dockerized environment. The combination of Caddy's reverse proxy capabilities with Dockge's stack management tools presents a robust solution for maintaining a secure, scalable, and well-organized container ecosystem.
+
+<img src="https://t3.talz.net/talz/img/ConfigCraft-Caddy.png" width="900" alt="" />
 
 # Caddy as a reverse proxy in docker
 
@@ -97,9 +100,10 @@ You obviously want to change `talz.net` to your domain.
 
 By specifying `DOCKER_VOLUME_STORAGE=/mnt/docker-volumes` in the environment configuration, the project ensures that all containerized applications have a consistent and secure location for storing persistent data.
 
-### - Create Caddyfile
+### - Create Caddyfile in $DOCKER_VOLUME_STORAGE/caddy/Caddyfile
 
 `Caddyfile`
+
 ```
 stack.{$MY_DOMAIN} {
     reverse_proxy dockge_internal:5001
@@ -112,7 +116,7 @@ actual.{$MY_DOMAIN} {
 
 ```
 
-For the configuration of subdomains such as 'stack' and 'actual', flexibility in naming is provided to suit your naming conventions. To ensure these subdomains are operational, establish type-A DNS records for each. These records must point to your public IP address and be configured within your DNS management platform, such as Cloudflare or any other DNS service provider you utilize.
+For the configuration of subdomains such as `stack` and `actual`, flexibility in naming is provided to suit your naming conventions. To ensure these subdomains are operational, establish type-A DNS records for each. These records must point to your public IP address and be configured within your DNS management platform, such as Cloudflare or any other DNS service provider you utilize.
 
 # Create directories that store your stacks and stores Dockge's stack
 mkdir -p /opt/stacks /opt/dockge
