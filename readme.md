@@ -18,6 +18,11 @@ All the future containers and Caddy must be on `internal_net` network.
   
 For internal communication, the project employs a DNS-based strategy by utilizing container names for addressing, allowing containers to target each other using hostnames.
 
+### Create directories that store your stacks and stores Dockge's stack
+
+`mkdir -p /opt/stacks /opt/dockge`
+
+
 - Files and directory structure
 
 ```
@@ -116,17 +121,53 @@ actual.{$MY_DOMAIN} {
 
 ```
 
-For the configuration of subdomains such as `stack` and `actual`, flexibility in naming is provided to suit your naming conventions. To ensure these subdomains are operational, establish type-A DNS records for each. These records must point to your public IP address and be configured within your DNS management platform, such as Cloudflare or any other DNS service provider you utilize.
+For the configuration of subdomains such as `stack` and `actual`, flexibility in naming is provided to suit your naming conventions. To ensure these subdomains are operational, establish type-A DNS records for each. These records must point to your public IP address and be configured within your DNS management platform, such as [Cloudflare](https://www.cloudflare.com/) or any other DNS service provider you utilize.
 
-# Create directories that store your stacks and stores Dockge's stack
-mkdir -p /opt/stacks /opt/dockge
-cd /opt/dockge
 
-# Download the compose.yaml
-curl https://raw.githubusercontent.com/louislam/dockge/master/compose.yaml --output compose.yaml
+# Dockge as a Compose manager
 
-# Start the server
-docker compose up -d
+- Files and directory structure
 
-# If you are using docker-compose V1 or Podman
-# docker-compose up -d
+```
+/opt/
+└── /
+    └── dockge/
+        └── ├── 🗋 .env
+            ├── 🗋 compose.yaml
+```
+
+`compose.yml`
+```yml
+version: "3.8"
+services:
+  dockge:
+    image: louislam/dockge:1
+    restart: unless-stopped
+    container_name: dockge_internal
+    env_file: .env
+    expose:
+      - "5001"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $DOCKER_VOLUME_STORAGE/dockge/data:/app/data
+      - /opt/stacks:/opt/stacks
+    environment:
+      - DOCKGE_STACKS_DIR=/opt/stacks
+networks:
+  default:
+    name: $DOCKER_INTERNAL_NETWORK
+    external: true
+```
+`.env`
+```php
+# Docker Volume
+DOCKER_VOLUME_STORAGE=/mnt/docker-volumes
+# GENERAL
+TZ=Asia/Singapore
+DOCKER_INTERNAL_NETWORK=internal_net
+```
+
+### Start the server
+
+`docker compose up -d`
+
