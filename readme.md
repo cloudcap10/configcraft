@@ -24,16 +24,15 @@ Caddy will be deployed within a Docker container acting as a reverse proxy, with
 
 # Installation
 
-### - Create a new docker network
+### 1. Create a new docker network
 
 `docker network create dmz_net`<br>
 `docker network create internal_net`
 
-All the future containers and Caddy must be on `internal_net` network.
-  
+Going forward, both Caddy and any additional containers should be connected to the `internal_net` network.  <br>
 For internal communication, the project employs a DNS-based strategy by utilizing container names for addressing, allowing containers to target each other using hostnames.
 
-### Create directories that store your stacks and stores Dockge's stack
+### 2. Create directories that store your stacks and stores Dockge's stack
 
 `mkdir -p /opt/stacks /opt/dockge`
 
@@ -66,7 +65,7 @@ You only need to provide the three files.<br>
 The directories are created by docker compose on the first run, 
 the content of these is visible only as root of the docker host.
 
-### - Create docker-compose.yml and .env file
+### 3. Create docker-compose.yml and .env file
 
  In this setup, ports 80 and 443 are published/mapped onto the Docker host, as Caddy is designated to handle all incoming traffic on these ports.
 
@@ -122,7 +121,7 @@ You obviously want to change `talz.net` to your domain.
 
 By specifying `DOCKER_VOLUME_STORAGE=/mnt/docker-volumes` in the environment configuration, the project ensures that all containerized applications have a consistent and secure location for storing persistent data.
 
-### - Create Caddyfile in $DOCKER_VOLUME_STORAGE/caddy/Caddyfile
+### 4. Create Caddyfile in $DOCKER_VOLUME_STORAGE/caddy/Caddyfile
 
 `Caddyfile`
 
