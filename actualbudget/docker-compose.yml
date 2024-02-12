@@ -1,0 +1,16 @@
+version: '3'
+services:
+  actual_server:
+    container_name: actual_internal
+    image: docker.io/actualbudget/actual-server:latest
+    env_file: .env
+    expose:
+      - "5006"
+    environment:
+    volumes:
+      - $DOCKER_VOLUME_STORAGE/actual_server/actual-data:/data
+    restart: unless-stopped
+networks:
+  default:
+    name: $DOCKER_INTERNAL_NETWORK
+    external: true

@@ -1,0 +1,31 @@
+version: "3.5"
+services:
+  caddy:
+    image: caddy:2.7.6-alpine
+    container_name: caddy_dmz
+    restart: always
+    env_file: .env
+    ports:
+      - 80:80
+      - 443:443
+      - 443:443/udp
+    volumes:
+      - $DOCKER_VOLUME_STORAGE/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - $DOCKER_VOLUME_STORAGE/caddy/caddy_data:/data
+      - $DOCKER_VOLUME_STORAGE/caddy/caddy_config:/config
+      - $DOCKER_VOLUME_STORAGE/caddy/caddy_logs:/var/log/caddy
+    logging:
+      driver: json-file
+      options:
+        max-size: 1M
+        max-file: "10"
+    networks:
+      dmz_net: {}
+      default:
+networks:
+  dmz_net:
+    name: $DOCKER_DMZ_NETWORK
+    external: true
+  default:
+    name: $DOCKER_INTERNAL_NETWORK
+    external: true

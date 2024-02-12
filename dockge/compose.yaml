@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  dockge:
+    image: louislam/dockge:1
+    restart: unless-stopped
+    container_name: dockge_internal
+    env_file: .env
+    expose:
+      - "5001"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $DOCKER_VOLUME_STORAGE/dockge/data:/app/data
+      - /opt/stacks:/opt/stacks
+    environment:
+      - DOCKGE_STACKS_DIR=/opt/stacks
+networks:
+  default:
+    name: $DOCKER_INTERNAL_NETWORK
+    external: true
