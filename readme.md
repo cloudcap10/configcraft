@@ -105,15 +105,17 @@ By specifying `DOCKER_VOLUME_STORAGE=/mnt/docker-volumes` in the environment con
 `Caddyfile`
 ```
 stack.{$MY_DOMAIN} {
-    reverse_proxy whoami:80
+    reverse_proxy dockge_internal:5001
 }
 
-b.{$MY_DOMAIN} {
-    reverse_proxy nginx:80
+actual.{$MY_DOMAIN} {
+    reverse_proxy actual_internal:5006
 }
+
+
 ```
 
-`a` and `b` are the subdomains, can be named whatever.<br>
+`stack` and `actual` are the subdomains, can be named whatever.<br>
 For them to work they **must have type-A DNS record set**, that points
 at your public ip set on Cloudflare, or wherever the domains DNS is managed.<br>
 
