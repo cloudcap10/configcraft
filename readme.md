@@ -1,10 +1,12 @@
+## About The Project
+
 # Caddy as a reverse proxy in docker
 
 Caddy will be deployed within a Docker container acting as a reverse proxy, with ports 80 and 443 accessible to the public through DMZ. Its role includes routing traffic to other containers or network devices. Importantly, only this container will be exposed publicly; all other internal communications should occur through Docker Compose's networking capabilities. It's crucial to utilize the expose parameter for other containers, ensuring they are only accessible internally within the Docker network.
 
 ### - Create a new docker network
 
-`docker network create dmz_net`
+`docker network create dmz_net`<br>
 `docker network create internal_net`
 
 All the future containers and Caddy must be on this new network.
@@ -47,26 +49,36 @@ is the one in charge of any traffic coming there.<br>
 
 `docker-compose.yml`
 ```yml
+version: "3.5"
 services:
-
   caddy:
-    image: caddy
-    container_name: caddy
-    hostname: caddy
-    restart: unless-stopped
+    image: caddy:2.7.6-alpine
+    container_name: caddy_dmz
+    restart: always
     env_file: .env
     ports:
-      - "80:80"
-      - "443:443"
-      - "443:443/udp"
+      - 80:80
+      - 443:443
+      - 443:443/udp
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./caddy_config:/config
-      - ./caddy_data:/data
-
+      - $DOCKER_VOLUME_STORAGE/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - $DOCKER_VOLUME_STORAGE/caddy/caddy_data:/data
+      - $DOCKER_VOLUME_STORAGE/caddy/caddy_config:/config
+      - $DOCKER_VOLUME_STORAGE/caddy/caddy_logs:/var/log/caddy
+    logging:
+      driver: json-file
+      options:
+        max-size: 1M
+        max-file: "10"
+    networks:
+      dmz_net: {}
+      default:
 networks:
+  dmz_net:
+    name: $DOCKER_DMZ_NETWORK
+    external: true
   default:
-    name: $DOCKER_MY_NETWORK
+    name: $DOCKER_INTERNAL_NETWORK
     external: true
 ```
 
