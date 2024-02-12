@@ -13,11 +13,10 @@ Caddy will be deployed within a Docker container acting as a reverse proxy, with
 
 All the future containers and Caddy must be on `internal_net` network.
   
-Can be named whatever you want, but it must be a new custom named network.
-Otherwise [dns resolution would not work](https://docs.docker.com/network/drivers/bridge/)
-and containers would not be able to target each other just by the hostname.
+For internal communication, the project employs a DNS-based strategy by utilizing container names for addressing, allowing containers to target each other using hostnames.
 
 - Files and directory structure
+
 ```
 /opt/
 └── /
