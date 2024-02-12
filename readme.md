@@ -1,19 +1,22 @@
 ## About The Project
 
+Incorporating Dockge, a Docker compose.yaml stack-oriented manager, this project further streamlines the deployment and management of containerized applications. Dockge introduces an intuitive layer for handling Docker Compose files, enabling users to effortlessly create, edit, and manage their service stacks. With Caddy serving as the primary entry point for traffic routing, Dockge complements this setup by offering a centralized platform for managing the underlying Docker Compose configurations. This synergy enhances operational efficiency, simplifies the process of scaling services, and provides a unified interface for overseeing the entire Dockerized environment. The combination of Caddy's reverse proxy capabilities with Dockge's stack management tools presents a robust solution for maintaining a secure, scalable, and well-organized container ecosystem.
+
 # Caddy as a reverse proxy in docker
 
-Caddy will be deployed within a Docker container acting as a reverse proxy, with ports 80 and 443 accessible to the public through DMZ. Its role includes routing traffic to other containers or network devices. Importantly, only this container will be exposed publicly; all other internal communications should occur through Docker Compose's networking capabilities. It's crucial to utilize the expose parameter for other containers, ensuring they are only accessible internally within the Docker network.
+Caddy will be deployed within a Docker container acting as a reverse proxy, with ports 80 and 443 accessible to the public through DMZ. Its role includes routing traffic to other containers or network devices. Importantly, only this container will be exposed publicly; all other internal communications should occur through Docker Compose's networking capabilities. It's crucial to utilize the `expose` parameter for other containers, ensuring they are only accessible internally within the Docker network.
 
 ### - Create a new docker network
 
 `docker network create dmz_net`<br>
 `docker network create internal_net`
 
-All the future containers and Caddy must be on this new network.
+All the future containers and Caddy must be on `internal_net` network.
   
 Can be named whatever you want, but it must be a new custom named network.
 Otherwise [dns resolution would not work](https://docs.docker.com/network/drivers/bridge/)
 and containers would not be able to target each other just by the hostname.
+
 - Files and directory structure
 ```
 /opt/
@@ -71,7 +74,7 @@ services:
         max-size: 1M
         max-file: "10"
     networks:
-      dmz_net: {}
+      dmz_net:
       default:
 networks:
   dmz_net:
