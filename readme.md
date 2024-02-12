@@ -87,20 +87,24 @@ networks:
 
 `.env`
 ```php
+# Docker Volume
+DOCKER_VOLUME_STORAGE=/mnt/docker-volumes
 # GENERAL
-TZ=Europe/Bratislava
-DOCKER_MY_NETWORK=caddy_net
-MY_DOMAIN=example.com
+TZ=Asia/Singapore
+DOCKER_DMZ_NETWORK=dmz_net
+DOCKER_INTERNAL_NETWORK=internal_net
+MY_DOMAIN=talz.net
 ```
 
-You obviously want to change `example.com` to your domain.
+You obviously want to change `talz.net` to your domain.
 
+By specifying `DOCKER_VOLUME_STORAGE=/mnt/docker-volumes` in the environment configuration, the project ensures that all containerized applications have a consistent and secure location for storing persistent data.
 
 ### - Create Caddyfile
 
 `Caddyfile`
 ```
-a.{$MY_DOMAIN} {
+stack.{$MY_DOMAIN} {
     reverse_proxy whoami:80
 }
 
@@ -112,6 +116,8 @@ b.{$MY_DOMAIN} {
 `a` and `b` are the subdomains, can be named whatever.<br>
 For them to work they **must have type-A DNS record set**, that points
 at your public ip set on Cloudflare, or wherever the domains DNS is managed.<br>
+
+
 
 # Create directories that store your stacks and stores Dockge's stack
 mkdir -p /opt/stacks /opt/dockge
