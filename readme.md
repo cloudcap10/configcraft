@@ -5,9 +5,24 @@ Incorporating [dockge](https://github.com/louislam/dockge), a Docker compose.yam
 
 <img src="assets/ConfigCraft-Caddy.png" width="900" alt="" />
 
-# Caddy as a reverse proxy in docker
+# Built With
+
+[![Built With](https://skillicons.dev/icons?i=git,docker)](https://github.com/cloudcap10/configcraft)
+
+# Getting Started
+
+### Caddy as a reverse proxy in docker
 
 Caddy will be deployed within a Docker container acting as a reverse proxy, with ports 80 and 443 accessible to the public through DMZ. Its role includes routing traffic to other containers or network devices. Importantly, only this container will be exposed publicly; all other internal communications should occur through Docker Compose's networking capabilities. It's crucial to utilize the `expose` parameter for other containers, ensuring they are only accessible internally within the Docker network.
+
+### Prerequisites
+
+- **Docker and Docker Compose**: Ensure both are installed on your system. These are essential for creating and managing your containerized Caddy server.
+- **Basic Docker Knowledge**: Familiarity with Docker and containerization concepts is recommended to follow this setup smoothly.
+- **Domain Configuration Access**: If you plan to use Caddy for external traffic management, you should have the ability to modify DNS settings for your domain.
+- **VPS or Server**: Access to a Virtual Private Server (VPS) or any server with a public IP address. This server will host your Docker containers and must be accessible from the internet if you intend to manage external web traffic through Caddy.
+
+# Installation
 
 ### - Create a new docker network
 
