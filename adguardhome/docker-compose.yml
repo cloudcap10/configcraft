@@ -1,6 +1,7 @@
 include:
   - ../compose-common.yml
-
+volumes:
+  adguard-vol:
 services:
   adguardhome:
     image: adguard/adguardhome
@@ -14,8 +15,8 @@ services:
 #      - 80:80/tcp
 #      - 443:443/tcp
     volumes:
-      - ./workdir:/opt/adguardhome/work
-      - ./confdir:/opt/adguardhome/conf
+      - adguard-vol:/opt/adguardhome/work
+      - adguard-vol:/opt/adguardhome/conf
     restart: unless-stopped
     networks:
       - dmz-net

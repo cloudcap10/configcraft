@@ -1,6 +1,7 @@
 include:
   - ../compose-common.yml
-
+volumes:
+  actualserver-vol:
 services:
   actual_server:
     container_name: actual_internal
@@ -9,7 +10,7 @@ services:
     ports:
       - '5006:5006'
     volumes:
-      - ./actual-data:/data
+      - actualserver-vol:/data
     restart: unless-stopped
     networks:
       - dmz-net
