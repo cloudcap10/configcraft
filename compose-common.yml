@@ -1,0 +1,6 @@
+networks:
+  dmz-net:
+    external: true
+  internal-net:
+    name: internal-net
+    driver: bridge

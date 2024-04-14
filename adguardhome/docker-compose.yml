@@ -1,0 +1,21 @@
+include:
+  - ../compose-common.yml
+
+services:
+  adguardhome:
+    image: adguard/adguardhome
+    container_name: adguardhome
+    ports:
+      - 10.255.100.11:53:53/tcp
+      - 10.255.100.11:53:53/udp
+#      - 784:784/udp
+#      - 853:853/tcp
+      - 10.255.100.11:3000:3000/tcp
+#      - 80:80/tcp
+#      - 443:443/tcp
+    volumes:
+      - ./workdir:/opt/adguardhome/work
+      - ./confdir:/opt/adguardhome/conf
+    restart: unless-stopped
+    networks:
+      - dmz-net
