@@ -1,16 +1,15 @@
-version: '3'
+include:
+  - ../compose-common.yml
+
 services:
   actual_server:
     container_name: actual_internal
     image: docker.io/actualbudget/actual-server:latest
-    env_file: .env
-    expose:
-      - "5006"
-    environment:
+#    env_file: .env
+    ports:
+      - '5006:5006'
     volumes:
-      - $DOCKER_VOLUME_STORAGE/actual_server/actual-data:/data
+      - ./actual-data:/data
     restart: unless-stopped
-networks:
-  default:
-    name: $DOCKER_INTERNAL_NETWORK
-    external: true
+    networks:
+      - dmz-net
